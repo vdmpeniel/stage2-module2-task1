@@ -17,7 +17,13 @@
     <h3 class="title w3-text-black">
         <span>Add user</span>
     </h3>
-    <form action="add" method="post">
+
+
+    <form
+        action="./add"
+        method="post"
+        enctype="application/x-www-form-urlencoded"
+    >
         <input class="w3-input w3-border" required name="firstName" placeholder="Enter First Name">
         <br>
         <input class="w3-input w3-border" required name="lastName" placeholder="Enter Last Name">
@@ -25,7 +31,7 @@
         <button class="w3-button w3-round btn-block w3-green" type="submit">Submit</button>
     </form>
     <div>
-        <button class="w3-btn w3-light-blue w3-round-large" onclick="location.href='/users'">Users</button>
+        <button class="w3-btn w3-light-blue w3-round-large" onclick="location.href='./users'">Users</button>
     </div>
 </div>
 </body>
