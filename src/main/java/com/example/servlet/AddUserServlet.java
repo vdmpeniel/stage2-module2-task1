@@ -29,7 +29,6 @@ public class AddUserServlet extends HttpServlet {
         // forward to add.jsp
         try {
             if (Objects.nonNull(request)) {
-
                 String firstName = request.getParameter("firstName");
                 String lastName = request.getParameter("lastName");
                 if (firstName != null && lastName != null) {
@@ -38,10 +37,11 @@ public class AddUserServlet extends HttpServlet {
                     Warehouse.getInstance().addUser(user);
                 }
             }
+            request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
+
         } catch(Exception e) {
             response.getWriter().write("Error: " + e.getCause());
-
         }
-        request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
+
     }
 }
