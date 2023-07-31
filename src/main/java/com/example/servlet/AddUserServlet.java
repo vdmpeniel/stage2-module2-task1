@@ -16,12 +16,14 @@ import java.util.Objects;
 
 @WebServlet(value="/add", loadOnStartup = 1)
 public class AddUserServlet extends HttpServlet {
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServletException {
 
         // forward to add.jsp
         request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
     }
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // forward to add.jsp
