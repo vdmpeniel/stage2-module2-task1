@@ -33,11 +33,11 @@ public class AddUserServlet extends HttpServlet {
                     request.setAttribute("user", user);
                     Warehouse.getInstance().addUser(user);
                 }
+                request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
             }
-            request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
 
         } catch(Exception e) {
-            response.getWriter().write("Error: " + e.getCause());
+            System.out.println("Error: " + e.getCause());
         }
 
     }
