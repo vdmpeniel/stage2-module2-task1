@@ -23,12 +23,16 @@ public class AddUserServlet extends HttpServlet {
         request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = new User(request.getParameter("firstName"), request.getParameter("lastName"));
-        if (Objects.nonNull(user)) {
-            request.setAttribute("user", user);
-            Warehouse.getInstance().addUser(user);
-        }
+
         // forward to add.jsp
-        request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
+        if (Objects.nonNull(request)) {
+            User user = new User(request.getParameter("firstName"), request.getParameter("lastName"));
+
+            if (Objects.nonNull(user)) {
+                request.setAttribute("user", user);
+                Warehouse.getInstance().addUser(user);
+            }
+            request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
+        }
     }
 }
