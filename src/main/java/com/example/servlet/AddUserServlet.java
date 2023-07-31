@@ -25,14 +25,21 @@ public class AddUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // forward to add.jsp
-        if (Objects.nonNull(request)) {
-            User user = new User(request.getParameter("firstName"), request.getParameter("lastName"));
+        try {
+            if (Objects.nonNull(request)) {
 
-            if (Objects.nonNull(user)) {
-                request.setAttribute("user", user);
-                Warehouse.getInstance().addUser(user);
+                String firstName = request.getParameter("firstName");
+                String lastName = request.getParameter("lastName");
+                if (firstName != null && lastName != null) {
+                    User user = new User(firstName, lastName);
+                    request.setAttribute("user", user);
+                    Warehouse.getInstance().addUser(user);
+                }
             }
-            request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
+        } catch(Exception e) {
+            response.getWriter().write("Error: " + e.getCause());
+
         }
+        request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
     }
 }
