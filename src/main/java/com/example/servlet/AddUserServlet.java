@@ -43,6 +43,5 @@ public class AddUserServlet extends HttpServlet {
             if (Objects.nonNull(dispatcher)) { dispatcher.forward(request, response); }
 
         }
-
     }
 }
