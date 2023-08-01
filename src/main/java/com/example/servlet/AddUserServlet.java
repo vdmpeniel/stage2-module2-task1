@@ -3,6 +3,7 @@ package com.example.servlet;
 import com.example.User;
 import com.example.Warehouse;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,10 +17,17 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
-        // forward to add.jsp
-        request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
+        try {
+            if (Objects.nonNull(request)) {
+                // forward to add.jsp
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
+                if (Objects.nonNull(dispatcher)) {
+                    dispatcher.forward(request, response);
+                }
+            }
+        } catch(Exception e) {}
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -33,11 +41,13 @@ public class AddUserServlet extends HttpServlet {
                     request.setAttribute("user", user);
                     Warehouse.getInstance().addUser(user);
                 }
-                request.getRequestDispatcher("/jsp/add.jsp").forward(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
+                if (Objects.nonNull(dispatcher)) { dispatcher.forward(request, response); }
+
             }
 
         } catch(Exception e) {
-            System.out.println("Error: " + e.getCause());
+            //System.out.println("Error: " + e.getCause());
         }
 
     }
