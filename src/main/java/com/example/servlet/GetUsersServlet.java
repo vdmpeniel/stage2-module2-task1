@@ -14,11 +14,11 @@ import java.util.Objects;
 @WebServlet(value="/users")
 public class GetUsersServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (Objects.nonNull(request)) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response){
+        try {
             request.setAttribute("users", Warehouse.getInstance().getUsers());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/users.jsp");
             if (Objects.nonNull(dispatcher)) { dispatcher.forward(request, response); }
-        }
+        } catch(Exception e){}
     }
 }

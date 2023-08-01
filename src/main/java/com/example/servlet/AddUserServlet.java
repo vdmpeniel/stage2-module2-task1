@@ -15,21 +15,18 @@ import java.util.Objects;
 @WebServlet(value="/add")
 public class AddUserServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            // forward to add.jsp
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
+            dispatcher.forward(request, response);
 
-            if (Objects.nonNull(request)) {
-                // forward to add.jsp
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
-                if (Objects.nonNull(dispatcher)) {
-                    dispatcher.forward(request, response);
-                }
-            }
-
+        } catch(Exception e) {}
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (Objects.nonNull(request)) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        try {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             if (firstName != null && lastName != null) {
@@ -40,6 +37,6 @@ public class AddUserServlet extends HttpServlet {
 
             // forward to add.jsp
             doGet(request, response);
-        }
+        } catch(Exception e) {}
     }
 }
