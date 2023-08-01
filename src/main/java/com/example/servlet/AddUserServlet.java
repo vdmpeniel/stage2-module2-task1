@@ -15,9 +15,8 @@ import java.util.Objects;
 @WebServlet(value="/add", loadOnStartup = 1)
 public class AddUserServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        try {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
             if (Objects.nonNull(request)) {
                 // forward to add.jsp
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
@@ -25,29 +24,24 @@ public class AddUserServlet extends HttpServlet {
                     dispatcher.forward(request, response);
                 }
             }
-        } catch(Exception e) {}
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        // forward to add.jsp
-        try {
-            if (Objects.nonNull(request)) {
-                String firstName = request.getParameter("firstName");
-                String lastName = request.getParameter("lastName");
-                if (firstName != null && lastName != null) {
-                    User user = new User(firstName, lastName);
-                    request.setAttribute("user", user);
-                    Warehouse.getInstance().addUser(user);
-                }
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
-                if (Objects.nonNull(dispatcher)) { dispatcher.forward(request, response); }
-
+        if (Objects.nonNull(request)) {
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            if (firstName != null && lastName != null) {
+                User user = new User(firstName, lastName);
+                request.setAttribute("user", user);
+                Warehouse.getInstance().addUser(user);
             }
 
-        } catch(Exception e) {
-            //System.out.println("Error: " + e.getCause());
+            // forward to add.jsp
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
+            if (Objects.nonNull(dispatcher)) { dispatcher.forward(request, response); }
+
         }
 
     }
