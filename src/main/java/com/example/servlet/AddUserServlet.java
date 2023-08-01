@@ -39,9 +39,7 @@ public class AddUserServlet extends HttpServlet {
             }
 
             // forward to add.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
-            if (Objects.nonNull(dispatcher)) { dispatcher.forward(request, response); }
-
+            doGet(request, response);
         }
     }
 }
