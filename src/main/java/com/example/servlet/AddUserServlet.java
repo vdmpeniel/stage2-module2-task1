@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 @WebServlet(value="/add")
 public class AddUserServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(AddUserServlet.class.getName());
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -21,7 +24,9 @@ public class AddUserServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/add.jsp");
             dispatcher.forward(request, response);
 
-        } catch(Exception e) {}
+        } catch(Exception e) {
+            logger.info("Error: " + e.getCause());
+        }
     }
 
     @Override
